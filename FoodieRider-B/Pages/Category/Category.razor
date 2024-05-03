@@ -1,0 +1,81 @@
+﻿@page "/category"
+@using FoodieRider.BAL.Dto
+@using FoodieRider_B.Services
+@using FoodieRider_B.Shared.Components
+@inject ICategoryServices service;
+
+<PageTitle>Category</PageTitle>
+@if (categories == null)
+{
+    <Loader />
+}
+<div class="text-center p-2 m-5">
+    <div class="max-w-md mx-auto rounded-lg overflow-hidden md:max-w-xl shadow-2xl">
+        <div class="md:flex">
+            <div class="w-full">
+                <div class="relative from-white to-gray-50 bg-gradient-to-b">
+                    <input type="text"
+                        class="bg-inherit h-14 w-full px-12 rounded-lg focus:outline-none hover:cursor-pointer"
+                        placeholder="Search your favorite category" />
+                    <button class="absolute top-4 right-5 border-l pl-4 text-indigo-500">
+                        <img src="css/icons/iconify/search.svg" alt="img" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="border-b-thin w-24 mx-auto"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-12">
+    @if (categories != null && categories.Count > 0)
+    {
+        @foreach (var item in categories)
+        {
+            <div
+                class="bg-white border border-gray-100 transition transform duration-700 focus:bg-slate-100 hover:shadow-xl hover:scale-105 p-4 rounded-lg relative">
+                <img class="w-64 mx-auto transform transition duration-300 hover:scale-105 shadow-sm rounded-lg" src=@item.Image
+                    alt="" />
+                <div class="flex flex-col items-center my-3 space-y-2">
+                    <h1 class="text-gray-900 poppins text-lg">@item.Name</h1>
+                    <p class="text-gray-500 poppins text-sm text-center">
+                        @item.Description
+                    </p>
+                    <a href=/category/@item.Id
+                        class="bg-primary text-white px-8 py-2 focus:outline-none poppins rounded-full mt-24 transform transition duration-300 hover:scale-105">
+                        View Items
+                    </a>
+                </div>
+            </div>
+        }
+    }
+
+</div>
+
+@code {
+    private List<CategorySearch>? categories;
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await service.GetCategories();
+    }
+}
+
+@* <BlazorSlickCarousel @ref="theCarousel"> *@
+@* <BlazorSlickCarouselContent>
+@if (categories != null && categories.Count > 0)
+{
+@foreach (var category in categories)
+{
+<div>
+<h3>@category.Name</h3>
+</div>
+}
+}
+else
+{
+<p>No categories available</p>
+}
+</BlazorSlickCarouselContent> *@
+@* <BlazorSlickCarouselLoading>
+<p>Loading...</p>
+</BlazorSlickCarouselLoading> *@
+@* </BlazorSlickCarousel> *@

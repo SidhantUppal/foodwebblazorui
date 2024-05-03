@@ -1,0 +1,22 @@
+.nav-element {
+    transition: all 0.3s;
+}
+
+.selected {
+    @apply underline decoration-white;
+}
+
+.auth-div {
+    /* @media (max-width: 1280px) {
+			display: none;
+		} */
+    @apply hidden xl:block;
+}
+.about-container {
+    min-height: calc(100vh - 14rem);
+    padding-top: 4rem;
+}
+
+/*.page-container {
+    @apply animate-fade-in-up flex flex-col items-center justify-center;
+}*/

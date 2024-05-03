@@ -1,0 +1,19 @@
+﻿<div class="bg-gray-50">
+    <div class="mx-auto py-12 px-4">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg font-medium text-gray-900">@Title</h3>
+                    <p class="mt-1 max-w-2xl text-primary">Please take our <a target="_blank" class="font-bold link-dark"
+                    href="https://go.microsoft.com/fwlink/?linkid=2186158">brief survey</a> and tell us what you think.</p>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500">This is a survey prompt component.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    // Demonstrates how a parent component can supply parameters
+    [Parameter]
+    public string? Title { get; set; }
+}

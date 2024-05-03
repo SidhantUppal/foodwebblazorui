@@ -1,0 +1,154 @@
+﻿@using FoodieRider.BAL.Dto
+@using FoodieRider_B.Data.Models
+@using FoodieRider_B.Data.Services
+@using FoodieRider_B.Data.ViewModels
+@using FoodieRider_B.Helper
+@using Newtonsoft.Json
+@inject ICartServices cartService
+@inject CartState cartState
+@if (item != null)
+{
+    <div class="bg-white border border-gray-100 transition transform duration-700 hover:shadow-xl hover:scale-105 p-4 rounded-lg relative">
+        <img class="w-64 mx-auto transform transition duration-300 hover:scale-105 shadow-sm rounded-lg"
+             src="@GetImageSrc(item)"
+             onerror="@HandleImageError"
+             alt="" />
+
+        <div class="flex flex-col items-center my-3 space-y-2">
+            <h1 class="text-gray-900 poppins text-lg">@item.Name</h1>
+            <p class="text-gray-500 poppins text-sm text-center">@item.Description</p>
+            <h2 class="text-gray-900 poppins text-2xl font-bold">@item.Price.ToString("F2")</h2>
+            @if (cartState.IsItemExist)
+            {
+                <div class="custom-number-input h-10 w-32">
+                    <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+                        <button class=" bg-primary mr-1 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
+                                type="button">
+                            <span class="m-auto text-2xl font-thin">−</span>
+                        </button>
+                        <input type="number"
+                               class="focus:outline-none text-center w-full rounded-sm bg-gray-300 font-semibold text-md hover:text-black focus:text-black md:text-basecursor-default flex items-center text-gray-700 outline-none"
+                               name="custom-input-number"
+                               value={cartQuantity} />
+                        <button class="bg-primary ml-1 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
+                                type="button">
+                            <span class="m-auto text-2xl font-thin">+</span>
+                        </button>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <button class="bg-primary text-white px-8 py-2 focus:outline-none poppins rounded-full mt-24 transform transition duration-300 hover:scale-105"
+                        @onclick="() => HandleOrder(item.Id)">
+                    Add to cart
+                </button>
+            }
+        </div>
+    </div>
+
+}
+@code {
+    [Parameter]
+    public ItemSearch item { get; set; }
+
+    [Parameter]
+    public bool isItemExist { get; set; }
+
+    private CartSearch CartSearch { get; set; }
+
+    private string GetImageSrc(ItemSearch item)
+    {
+        return !string.IsNullOrEmpty(item?.Image) ? item.Image : "https://i.postimg.cc/cJSFRcSq/pexels-valeria-boltneva-1639557.jpg";
+    }
+
+    private void HandleImageError()
+    {
+        // Handle image error if needed
+    }
+    protected async Task HandleOrder(int itemId)
+    {
+        cartState.SetUpdate();
+        StateHasChanged();
+        var cartObj  = await cartService.GetCart();
+
+        var jsonItem = CartJson.MergeItems(cartObj.Items, itemId);
+
+        CartDto dto = new()
+            {
+                UserId = Guid.NewGuid(),
+                _cartItemsJson = jsonItem
+            };
+
+        await cartService.Add(dto);
+        cartState.SetUpdate();
+        cartState.SetCartCount(cartObj.Items.Any() ? cartObj.Items.Count : 1);
+        IsOpen = true;
+        StateHasChanged();
+    }
+
+    bool IsOpen { get; set; }
+    int? cartCount { get; set; }
+    List<ItemSearch> items;
+    CartViewModel model;
+    void onclick()
+    {
+        IsOpen = !IsOpen;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // items = await cartService.Add()
+        CartSearch = await cartService.GetCart();
+    }
+
+    protected async Task addToCart(int id)
+    {
+        // Fetch the existing cart to get the current count
+        CartSearch existingCart = await cartService.GetCart();
+        int existingItemCount = existingCart.Items.Count;
+
+        // Create a CartDto object to represent the cart item to be added
+        var cartItem = new Dictionary<int, int> { { id, 1 } }; // Assuming initial quantity is 1
+        string cartItemJson = JsonConvert.SerializeObject(cartItem); // Serialize the dictionary to JSON
+
+        CartDto dto = new CartDto
+            {
+                UserId = Guid.NewGuid(),
+                _cartItemsJson = cartItemJson
+            };
+
+        // Call the cartService to add the item to the cart
+        await cartService.Add(dto);
+
+        // Update the cart count in the application state by adding 1 to the existing count
+        cartState.SetCartCount(existingItemCount + 1);
+
+        // Set IsOpen to true to indicate that the cart is open (if needed)
+        IsOpen = true;
+
+        // Notify Blazor that the component state has changed
+        StateHasChanged();
+    }
+
+    protected async Task DecreaseQuantity(int id)
+    {
+
+    }
+    protected async Task IncreaseQuantity(int id)
+    {
+
+    }
+    protected async Task ChangeQuantity(int id)
+    {
+
+    }
+
+
+    // void GoToCart()
+    // {
+    //     IsOpen = false;
+    //     navigationManager.NavigateTo("/MyShoppingCart");
+
+    // }
+}

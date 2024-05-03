@@ -1,0 +1,27 @@
+﻿@inherits LayoutComponentBase
+@using FoodieRider_B.Shared.Components
+
+<PageTitle>FoodieRider-B</PageTitle>
+
+<div class="flex flex-col min-h-screen">
+    @* <div class="sidebar"> *@
+    <NavMenu />
+    @* </div> *@
+
+    <main class="mb-10 h-5/6 items-center justify-center flex-grow custom-gradient animate-fade-in">
+        @Body
+    </main>
+    <Footer/>
+</div>
+
+
+@code {
+    private bool collapseNavMenu = true;
+    private string? NavBarCssClass => collapseNavMenu ? null : "show";
+    private string? NavButtonCssClass => collapseNavMenu ? "collapsed" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

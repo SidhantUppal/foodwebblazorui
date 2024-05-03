@@ -1,0 +1,245 @@
+[
+  {
+    "table": "aspnetusers",
+    "rows": [
+      {
+        "Id": "9abb7bf6-93ba-4ef0-928a-5b99a39959b9",
+        "FirstName": "Demo",
+        "LastName": "User",
+        "UserName": "demouser@gmail.com",
+        "NormalizedUserName": "DEMOUSER@GMAIL.COM",
+        "Email": "demouser@gmail.com",
+        "NormalizedEmail": "DEMOUSER@GMAIL.COM",
+        "EmailConfirmed": false,
+        "PasswordHash": "AQAAAAIAAYagAAAAEE0k6LBFiwbFKnqLRPMcQ8GTH23Pp2BIr+lW1i+s+y6tksiMFdL5dfU3vWhq1YH8bg==",
+        "SecurityStamp": "QWVKBZZBYODFPP2WVW7YSQOKTP7MWNTC",
+        "ConcurrencyStamp": "5bffa8d2-8656-4227-b164-e21e17925a3a",
+        "PhoneNumber": null,
+        "PhoneNumberConfirmed": false,
+        "TwoFactorEnabled": false,
+        "LockoutEnd": null,
+        "LockoutEnabled": true,
+        "AccessFailedCount": 0
+      }
+    ]
+  },
+  {
+    "table": "categories",
+    "rows": [
+      {
+        "Id": 1,
+        "Name": "Appetizers",
+        "Description": "Small dishes served before the main course to stimulate the appetite.",
+        "Image": "https://i.postimg.cc/BZghm4m0/francis-naung-u2r4-Z0-H0k-Sw--unsplash.jpg",
+        "IsDeleted": false
+      },
+      {
+        "Id": 2,
+        "Name": "Main Course",
+        "Description": "Hearty and satisfying main dishes, including meat, poultry, seafood, and vegetarian options.",
+        "Image": "https://i.postimg.cc/vZ2fP72r/Palak-Paneer.jpg",
+        "IsDeleted": false
+      },
+      {
+        "Id": 3,
+        "Name": "Pizza",
+        "Description": "Delicious Italian dish consisting of a yeasted flatbread typically topped with tomato sauce and cheese and baked in an oven.",
+        "Image": "https://i.postimg.cc/RCpqpqqc/Pepperoni-Pizza.jpg",
+        "IsDeleted": false
+      },
+      {
+        "Id": 4,
+        "Name": "Pasta",
+        "Description": "Traditional Italian dish made from dough of durum wheat flour and water, typically served with sauce or other toppings.",
+        "Image": "https://i.postimg.cc/kXPLmvV9/Penne-Arrabiata.jpg",
+        "IsDeleted": false
+      },
+      {
+        "Id": 5,
+        "Name": "Burger",
+        "Description": "Classic American dish consisting of a grilled or fried patty of ground meat, usually beef, served in a sliced bun.",
+        "Image": "https://i.postimg.cc/cJSFRcSq/pexels-valeria-boltneva-1639557.jpg",
+        "IsDeleted": false
+      },
+      {
+        "Id": 6,
+        "Name": "Salads",
+        "Description": "Fresh and healthy salads made with vegetables, fruits, and dressings.",
+        "Image": "https://i.postimg.cc/vmSHqNZG/Caesar-Salad.jpg",
+        "IsDeleted": false
+      },
+      {
+        "Id": 7,
+        "Name": "Soups",
+        "Description": "Warm and comforting soups made with various ingredients.",
+        "Image": "https://i.postimg.cc/J069yk01/free-photo-of-a-bowl-of-ramen.jpg",
+        "IsDeleted": false
+      },
+      {
+        "Id": 8,
+        "Name": "Desserts",
+        "Description": "Sweet treats and confections enjoyed after the main meal.",
+        "Image": "https://i.postimg.cc/FKxfMr1y/creme-brulee-3490886-1280.jpg",
+        "IsDeleted": false
+      },
+      {
+        "Id": 9,
+        "Name": "Sandwiches",
+        "Description": "A food typically consisting of vegetables, sliced cheese or meat, placed on or between slices of bread.",
+        "Image": "https://i.postimg.cc/L5n3rXfn/BLT-Sandwich.jpg",
+        "IsDeleted": false
+      },
+      {
+        "Id": 10,
+        "Name": "Seafood",
+        "Description": "Delicious dishes made from various types of seafood such as fish, shrimp, crab, and lobster.",
+        "Image": "https://i.postimg.cc/mrWBdXJH/Fish-Tacos.jpg",
+        "IsDeleted": false
+      }
+    ]
+  },
+  {
+    "table": "items",
+    "rows": [
+      {
+        "Id": 2,
+        "Name": "Caprese Salad",
+        "Description": "A classic Italian salad made with fresh tomatoes, mozzarella cheese, basil leaves, olive oil, and balsamic vinegar",
+        "Price": 8.990000000000000000000000000000,
+        "Image": "https://i.postimg.cc/zB1PrJB7/Caprese-Salad.jpg",
+        "CategoryId": 1,
+        "RestaurantId": 1,
+        "IsAvailable": true,
+        "IsDeleted": false
+      },
+      {
+        "Id": 3,
+        "Name": "Stuffed Mushrooms",
+        "Description": "Mushrooms filled with a savory mixture of breadcrumbs, cheese, herbs, and sometimes sausage, baked until golden brown",
+        "Price": 10.990000000000000000000000000000,
+        "Image": "https://i.postimg.cc/mrhFgMc2/Mushroom-Soup.jpg",
+        "CategoryId": 1,
+        "RestaurantId": 1,
+        "IsAvailable": true,
+        "IsDeleted": false
+      },
+      {
+        "Id": 4,
+        "Name": "Bruschetta",
+        "Description": "Grilled bread topped with diced tomatoes, garlic, basil, olive oil, and sometimes other ingredients like balsamic glaze or cheese",
+        "Price": 7.990000000000000000000000000000,
+        "Image": "https://i.postimg.cc/bwW3BjsN/Bruschetta.jpg",
+        "CategoryId": 1,
+        "RestaurantId": 1,
+        "IsAvailable": true,
+        "IsDeleted": false
+      },
+      {
+        "Id": 5,
+        "Name": "Spinach and Artichoke Dip",
+        "Description": "A creamy dip made with spinach, artichokes, cheese, and various seasonings, often served warm with tortilla chips or bread for dipping",
+        "Price": 9.990000000000000000000000000000,
+        "Image": "https://i.postimg.cc/nc54HGZ3/Spinach-and-Artichoke-Dip.jpg",
+        "CategoryId": 1,
+        "RestaurantId": 1,
+        "IsAvailable": true,
+        "IsDeleted": false
+      },
+      {
+        "Id": 6,
+        "Name": "Shrimp Cocktail",
+        "Description": "Chilled shrimp served with a tangy cocktail sauce made from ketchup, horseradish, lemon juice, Worcestershire sauce, and other seasonings",
+        "Price": 12.990000000000000000000000000000,
+        "Image": "https://i.postimg.cc/XYdCnMsv/Shrimp-Cocktail.jpg",
+        "CategoryId": 1,
+        "RestaurantId": 1,
+        "IsAvailable": true,
+        "IsDeleted": false
+      },
+      {
+        "Id": 7,
+        "Name": "Shrimp Cocktail",
+        "Description": "Chilled shrimp served with a tangy cocktail sauce made from ketchup, horseradish, lemon juice, Worcestershire sauce, and other seasonings",
+        "Price": 12.990000000000000000000000000000,
+        "Image": "https://i.postimg.cc/XYdCnMsv/Shrimp-Cocktail.jpg",
+        "CategoryId": 1,
+        "RestaurantId": 1,
+        "IsAvailable": true,
+        "IsDeleted": false
+      },
+      {
+        "Id": 8,
+        "Name": "Shrimp Cocktail",
+        "Description": "Chilled shrimp served with a tangy cocktail sauce made from ketchup, horseradish, lemon juice, Worcestershire sauce, and other seasonings",
+        "Price": 12.990000000000000000000000000000,
+        "Image": "https://i.postimg.cc/XYdCnMsv/Shrimp-Cocktail.jpg",
+        "CategoryId": 1,
+        "RestaurantId": 1,
+        "IsAvailable": true,
+        "IsDeleted": false
+      },
+      {
+        "Id": 9,
+        "Name": "Shrimp Cocktail",
+        "Description": "Chilled shrimp served with a tangy cocktail sauce made from ketchup, horseradish, lemon juice, Worcestershire sauce, and other seasonings",
+        "Price": 12.990000000000000000000000000000,
+        "Image": "https://i.postimg.cc/XYdCnMsv/Shrimp-Cocktail.jpg",
+        "CategoryId": 1,
+        "RestaurantId": 1,
+        "IsAvailable": true,
+        "IsDeleted": false
+      },
+      {
+        "Id": 10,
+        "Name": "Shrimp Cocktail",
+        "Description": "Chilled shrimp served with a tangy cocktail sauce made from ketchup, horseradish, lemon juice, Worcestershire sauce, and other seasonings",
+        "Price": 12.990000000000000000000000000000,
+        "Image": "https://i.postimg.cc/XYdCnMsv/Shrimp-Cocktail.jpg",
+        "CategoryId": 1,
+        "RestaurantId": 1,
+        "IsAvailable": true,
+        "IsDeleted": false
+      },
+      {
+        "Id": 11,
+        "Name": "Shrimp Cocktail",
+        "Description": "Chilled shrimp served with a tangy cocktail sauce made from ketchup, horseradish, lemon juice, Worcestershire sauce, and other seasonings",
+        "Price": 12.990000000000000000000000000000,
+        "Image": "https://i.postimg.cc/XYdCnMsv/Shrimp-Cocktail.jpg",
+        "CategoryId": 1,
+        "RestaurantId": 1,
+        "IsAvailable": true,
+        "IsDeleted": false
+      }
+    ]
+  },
+  {
+    "table": "restaurants",
+    "rows": [
+      {
+        "Id": 1,
+        "Name": "Foodie Rider",
+        "Description": "Description of Foodie Rider restaurant",
+        "Image": "https://i.postimg.cc/vZHbSZJX/login-bg.png",
+        "Address": "123 Main Street, City, Country",
+        "PhoneNumber": "+1234567890",
+        "Email": "info@foodierider.com",
+        "Website": "https://www.foodierider.com",
+        "IsDeleted": false
+      }
+    ]
+  },
+  {
+    "table": "carts",
+    "rows": [
+      {
+        "Id": 1,
+        "UserId": "9abb7bf6-93ba-4ef0-928a-5b99a39959b9",
+        "CartItems": "{\"2\":6,\"3\":11,\"4\":13,\"5\":4,\"6\":2,\"7\":1,\"8\":2,\"9\":2,\"10\":3}",
+        "CreatedBy": "",
+        "CreatedOnUtc": "2024-04-26 11:33:18.694061",
+        "ModifiedOnUtc": null
+      }
+    ]
+  }
+]

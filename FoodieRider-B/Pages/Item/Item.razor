@@ -1,0 +1,87 @@
+﻿@page "/item"
+@using FoodieRider.BAL.Dto
+@using FoodieRider_B.Services
+@using FoodieRider_B.Shared.Components
+@inject IItemServices service;
+
+<PageTitle>Items</PageTitle>
+@if (items == null)
+{
+    <Loader/>
+}
+<div class="text-center p-2 m-5">
+    <div class="max-w-md mx-auto rounded-lg overflow-hidden md:max-w-xl shadow-2xl">
+        <div class="md:flex">
+            <div class="w-full">
+                <div class="relative from-white to-gray-50 bg-gradient-to-b">
+                    <input type="text"
+                           class="bg-inherit h-14 w-full px-12 rounded-lg focus:outline-none hover:cursor-pointer"
+                           placeholder="Search your favorite item" />
+                    <button class="absolute top-4 right-5 border-l pl-4 text-indigo-500">
+                        <img src="css/icons/iconify/search.svg" alt="img" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="border-b-thin w-24 mx-auto"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-12">
+    @if (items != null && items.Count > 0)
+    {
+        @foreach (var item in items)
+        {
+            <ItemCard item=@item isItemExist=@false />
+        }
+    }
+
+</div>
+
+@code {
+    private List<ItemSearch>? items;
+    [Parameter]
+    public bool isItemExist { get; set; }
+
+    private int cartQuantity = 1;
+
+    private string GetImageSrc(ItemSearch item)
+    {
+
+        return !string.IsNullOrEmpty(item.Image) ? item.Image : "https://i.postimg.cc/cJSFRcSq/pexels-valeria-boltneva-1639557.jpg";
+    }
+
+    private void HandleImageError(ItemSearch item)
+    {
+        if (item is not null)
+        {
+            item.Image = "https://i.postimg.cc/cJSFRcSq/pexels-valeria-boltneva-1639557.jpg";
+        }
+
+    }
+
+    private void HandleOrder()
+    {
+        isItemExist = true;
+    }
+
+    // You need to implement methods for increasing and decreasing quantity if needed
+    private void IncreaseQuantity()
+    {
+        if (cartQuantity < 10)
+        {
+            cartQuantity++;
+        }
+    }
+
+    private void DecreaseQuantity()
+    {
+        if (cartQuantity > 1)
+        {
+            cartQuantity--;
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        items = await service.Get();
+    }
+}

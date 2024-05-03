@@ -1,0 +1,8 @@
+#inside ~/.gitconfig.sidhant
+[user]
+email = sidhantuppal08@gmail.com
+name = Sidhant
+[github]
+user = "SidhantUppal" 
+[core]
+sshCommand = "ssh -i ~/.ssh/SidhantUppal" 

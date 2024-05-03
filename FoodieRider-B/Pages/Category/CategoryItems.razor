@@ -1,0 +1,37 @@
+﻿@page "/category/{categoryId}"
+@using FoodieRider.BAL.Dto
+@using FoodieRider_B.Services
+@using FoodieRider_B.Shared.Components
+@inject IItemServices service;
+
+
+<PageTitle>Items</PageTitle>
+@if (items == null)
+{
+    <Loader />
+}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-16">
+    @if (items != null && items.Count > 0)
+    {
+        @foreach (var item in items)
+        {
+            if (item is not null)
+            {
+                <ItemCard item=@item isItemExist=@false />
+            }
+        }
+    }
+
+</div>
+
+@code {
+    private List<ItemSearch>? items;
+    [Parameter]
+    public string CategoryId { get; set; }
+   
+    protected override async Task OnInitializedAsync()
+    {
+        items = await service.GetByCategory(CategoryId);
+
+    }
+}

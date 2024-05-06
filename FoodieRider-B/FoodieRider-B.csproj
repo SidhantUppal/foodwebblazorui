@@ -15,7 +15,9 @@
     <ProjectReference Include="..\FoodieRider-B.BAL\FoodieRider-B.BAL.csproj" />
     <ProjectReference Include="..\FoodieRider-B.DAL\FoodieRider-B.DAL.csproj" />
   </ItemGroup>
-
+	<PropertyGroup>
+		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+	</PropertyGroup>
   <ItemGroup>
     <PackageReference Include="WMBlazorSlickCarousel" Version="1.0.1" />
   </ItemGroup>

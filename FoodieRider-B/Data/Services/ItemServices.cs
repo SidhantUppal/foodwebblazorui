@@ -1,6 +1,6 @@
 ﻿using FoodieRider.BAL.Dto;
 
-namespace FoodieRider_B.Services
+namespace FoodieRider_B.Data.Services
 {
     public interface IItemServices
     {

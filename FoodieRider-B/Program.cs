@@ -1,6 +1,5 @@
 using FoodieRider_B.Data.Models;
 using FoodieRider_B.Data.Services;
-using FoodieRider_B.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7219") });

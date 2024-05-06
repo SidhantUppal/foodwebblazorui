@@ -1,8 +1,10 @@
 ﻿@page "/item"
 @using FoodieRider.BAL.Dto
-@using FoodieRider_B.Services
+@using FoodieRider_B.Data.Models
 @using FoodieRider_B.Shared.Components
-@inject IItemServices service;
+@using FoodieRider_B.Data.Services
+@inject IItemServices service
+@inject CartState cartState;
 
 <PageTitle>Items</PageTitle>
 @if (items == null)
@@ -59,29 +61,9 @@
 
     }
 
-    private void HandleOrder()
-    {
-        isItemExist = true;
-    }
-
-    // You need to implement methods for increasing and decreasing quantity if needed
-    private void IncreaseQuantity()
-    {
-        if (cartQuantity < 10)
-        {
-            cartQuantity++;
-        }
-    }
-
-    private void DecreaseQuantity()
-    {
-        if (cartQuantity > 1)
-        {
-            cartQuantity--;
-        }
-    }
     protected override async Task OnInitializedAsync()
     {
         items = await service.Get();
+        await cartState.IntializeCart();
     }
 }

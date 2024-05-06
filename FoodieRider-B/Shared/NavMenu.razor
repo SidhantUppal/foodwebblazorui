@@ -107,14 +107,7 @@
     }
     protected override async Task OnInitializedAsync()
     {
-        var result = await cartService.GetCart();
-        if (result.Items is not null && result.Items.Any())
-        {
-            cartState.SetCartCount(result.Items.Count);
-        }
-    }
-    protected override void OnInitialized()
-    {
+        await cartState.IntializeCart();
         cartState.OnChange += StateHasChanged;
     }
 }

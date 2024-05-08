@@ -131,8 +131,29 @@ body {
 }
 
 .page-container {
-    @apply animate-fade-in-up flex flex-col items-center justify-center
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation-name: fade-in-up;
+    animation-duration: 1s;
 }
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.login-container {
+    min-height: calc(100vh - 14rem);
+}
+
 
 @layer components {
     .menu_tab {

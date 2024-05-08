@@ -1,0 +1,139 @@
+﻿@page "/register"
+@using FoodieRider.API.Dto.Auth
+@using FoodieRider_B.Shared.Components.Toast
+@using Microsoft.AspNetCore.Authentication.BearerToken
+@using Microsoft.AspNetCore.Http.HttpResults
+@using FoodieRider_B.Data.Services
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Mvc
+@using Newtonsoft.Json
+@using FoodieRider_B.Shared.Components
+@using Microsoft.AspNetCore.Components.Routing;
+@inject IAuthServices authService;
+@inject IToastService toastService
+@inject NavigationManager NavigationManager
+
+
+
+
+<div class="page-container p-5 mx-auto flex flex-wrap flex-col md:flex-row items-center rounded-sm">
+    @* @if (showAuthError)
+    {
+    <FoodieRider_B.Shared.Components.AlertComonent Message="@errors" Show="@showAuthError" />
+    } *@
+    <div class="hidden lg:flex items-center justify-center flex-1 bg-transparent text-black">
+        <div class="max-w-md text-center">
+            <img src="assets/login_bg.svg" alt="login_bg" class="w-full" />
+        </div>
+    </div>
+    <div class="w-full lg:w-1/2 flex items-center justify-center">
+        <div class="max-w-md w-full p-6">
+            <h1 class="text-3xl font-semibold mb-6 text-black text-center">Sign Up</h1>
+            <h1 class="text-sm font-semibold mb-6 text-gray-500 text-center">
+                Order your favorite food from your favorite restaurant
+            </h1>
+            <div class="mt-4 flex flex-col lg:flex-row items-center justify-center">
+                <div class="w-full lg:w-1/2 mb-2 lg:mb-0">
+                    <button type="button"
+                            class="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md hover:bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors duration-300">
+                        <img src="/assets/google.svg" alt="google_bg" class="w-5" />
+                        Google
+                    </button>
+                </div>
+            </div>
+            <div class="mt-4 text-sm text-gray-600 text-center">
+                <p>or with email</p>
+            </div>
+            <EditForm Model="@user" OnSubmit="Submit">
+                <DataAnnotationsValidator />
+                <div>
+                    <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+                    <InputText class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
+                               @bind-Value="user.FirstName"
+                               placeHolder="FirstName"
+                               id="firstName" />
+                    <ValidationMessage For="@(() => user.FirstName)" class="mt-2 text-sm text-red-600 dark:text-red-500" />
+                </div>
+                <div>
+                    <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+                    <InputText class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
+                               @bind-Value="user.LastName"
+                               placeHolder="Last Name"
+                               id="lastName" />
+                    <ValidationMessage For="@(() => user.LastName)" class="mt-2 text-sm text-red-600 dark:text-red-500" />
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                    <InputText class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
+                               @bind-Value="user.Email"
+                               placeHolder="Enter your email"
+                               id="email" />
+                    <ValidationMessage For="@(() => user.Email)" class="mt-2 text-sm text-red-600 dark:text-red-500" />
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <InputText class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
+                               @bind-Value="user.Password"
+                               id="password"
+                               placeholder="Password"
+                               type="password" />
+                    <ValidationMessage For="@(() => user.Password)" class="mt-2 text-sm text-red-600 dark:text-red-500" />
+
+                </div>
+                <div>
+                    <button type="submit" class="mt-4 text-center w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">
+                        Sign Up
+                    </button>
+                </div>
+            </EditForm>
+            <div class="mt-4 text-sm text-gray-600 text-center">
+                <p>
+                    Already have an account? <a href="/login" class="text-black hover:underline">Login here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    private UserDto user = new UserDto()
+        {
+            FirstName = "",
+            LastName = "",
+            Email = "",
+            Password = ""
+        };
+    private string errors;
+    private bool isSubmitting = false;
+    private bool showAuthError = false;
+    private ToastParameters _toastParameters = default!;
+
+    protected override void OnInitialized()
+    {
+        _toastParameters = new ToastParameters();
+        _toastParameters.Add(nameof(Alert.Message), "");
+    }
+
+    private async Task<HttpResponseMessage> Submit()
+    {
+        var response = await authService.Register(user);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorContent = await response.Content.ReadAsStringAsync();
+
+            var problemDetails = JsonConvert.DeserializeObject<ValidationProblemDetails>(errorContent);
+            if (problemDetails != null && problemDetails.Errors != null)
+            {
+                errors = string.Join(", ", problemDetails.Errors.SelectMany(x => x.Value));
+                showAuthError = true;
+                toastService.ShowToast<Alert>(_toastParameters.Add("Message",errors), settings => { settings.Timeout = 3; });
+            }
+        }
+        if (response.IsSuccessStatusCode)
+        {
+            NavigationManager.NavigateTo("/login");
+            toastService.ShowToast<Success>(_toastParameters.Add("Message", "User Registered Successfully"), settings => { settings.Timeout = 3; });
+        }
+        return response;
+    }
+}

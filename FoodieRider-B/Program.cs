@@ -1,3 +1,4 @@
+using Blazored.Toast;
 using FoodieRider_B.Data.Models;
 using FoodieRider_B.Data.Services;
 
@@ -10,8 +11,11 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddTransient<ICategoryServices, CategoryServices>();
 builder.Services.AddTransient<IItemServices, ItemServices>();
 builder.Services.AddTransient<ICartServices, CartServices>();
+builder.Services.AddTransient<IAuthServices, AuthServices>();
 builder.Services.AddScoped<CartState>();
 builder.Services.AddWMBSC(true);
+builder.Services.AddBlazoredToast();
+
 
 var app = builder.Build();
 

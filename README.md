@@ -33,5 +33,5 @@ To run the Food Ordering web app locally, follow these steps:
    - Install dependencies for tailwind: `npm install  .... use can restore npm packeges if you are using visual studio`
    - Run the Fronend(Blazor): `dotnet run`
 5. **Note**:
-   - Set FoodieRider-B and FoodiRider.API as startup project. This project is using blazor as ui so you can run your custom backend or make backend copy as per you choice.
+   - Set FoodieRider-B and FoodiRider.API as startup project. This project is using blazor as ui so you can run your custom backend or make backend copy as per you choice. 
 ---
